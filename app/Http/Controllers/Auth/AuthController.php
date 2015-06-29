@@ -20,6 +20,9 @@ class AuthController extends Controller
     |
     */
 
+    private $loginPath = '/login';
+     public $redirectTo = '/main';
+
     use AuthenticatesAndRegistersUsers;
 
     /**
