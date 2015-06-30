@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Redirect;
 use App\User;
 use App\Order;
+use App\Rule;
 use App\UserOrder;
 use Input;
 use Auth;
@@ -12,12 +13,20 @@ class MainController extends Controller {
 
     public function index() {
         $users = User::all();
-        $orders = UserOrder::where('order_id','=', $this->getOrder()->id);
+        $orders = UserOrder::where('order_id','=', $this->getOrder()->id)->get();
+
+        $myOrder = $orders->filter(function($item) {
+            return $item->user_id == Auth::user()->id;
+        })->first();
+
+        if($myOrder == null)    $myOrder = '';
+        else                    $myOrder = $myOrder->desc;
 
         $view = view('main.index');
         $view->with('users', $users);
-        $view->with('orders', $orders->get());
-        $view->with('nextUser',$this->getNextUser());
+        $view->with('orders', $orders);
+        $view->with('nextUser', $this->getNextUser());
+        $view->with('myorder', $myOrder);
 
         return $view;
     }
@@ -54,6 +63,18 @@ class MainController extends Controller {
         $users = User::with('order')->get()->sortBy(function($user) {
             return $user->order->count();
         });
-        return $users->first();
-    }
+
+        foreach ($users as $user){
+            $rules = Rule::forUser($user->id);
+            if($rules->count() == 0)
+                return $user;
+
+            foreach($rules as $rule){
+                    $condition = false;
+                    eval('$condition = ' . $rule->condition . ';');
+                    if(!$condition)
+                        return $user;
+                }
+            }
+        }
 }
