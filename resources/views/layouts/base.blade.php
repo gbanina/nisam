@@ -1,17 +1,4 @@
-<!--
-@if(Auth::guest())
-   <li class="pull-right">
-      <a href="{{ route('login') }}">login</a>
-      / <a href="{{ route('register') }}">register</a>
-   </li>
-@else
-   <li><a href="{{ route('profile', Auth::user()->getKey() ) }}">Profile</a></li>
-   <li class="pull-right">{{ Auth::user()->name }}<a href="{{ route('logout') }}">logout</a></li>
-@endif
--->
-
-
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="no-js">
     <head>
         <meta charset="UTF-8" />
@@ -29,6 +16,7 @@
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
         <script type="text/javascript" src="jquery.label_better.js"></script>
+        <script type="text/javascript" src="js/jquery.countdown.min.js"></script>
 
         <script>
           $(document).ready( function() {
@@ -41,11 +29,14 @@
     </head>
     <body>
       <div class="container">
-
             <!-- Top Navigation -->
             <div class="codrops-top clearfix">
                 <a class=" codrops-icon codrops-icon-drop" href="https://github.com/gbanina/whose-turn-is-it.git"><span>Nisam GitHub</span></a>
-                <span class="right"><a class="codrops-icon codrops-icon-prev" href="{{ route('logout') }}"><span>Logout</span></a></span>
+                @if(Auth::guest())
+                    <span class="right"><a class="codrops-icon codrops-icon-prev" href="http://influendo.com/"><span>Influendo Interweb</span></a></span>
+                @else
+                    <span class="right"><a class="codrops-icon codrops-icon-prev" href="{{ route('logout') }}"><span>Logout {{ Auth::user()->name }}</span></a></span>
+                @endif
             </div>
 
          @yield('body')
