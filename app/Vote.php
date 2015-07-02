@@ -8,16 +8,16 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class Order extends Model
+class Vote extends Model
 {
-    protected $table = 'order';
+    protected $table = 'vote';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['id', 'user_id', 'date','status'];
+    protected $fillable = ['id', 'user_id', 'order_id'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -25,8 +25,4 @@ class Order extends Model
      * @var array
      */
     protected $hidden = [];
-
-    public function getVotes(){
-        return Vote::where('order_id','=',$this->id)->get();
-    }
 }
