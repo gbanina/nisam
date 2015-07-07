@@ -1,7 +1,6 @@
 @extends('layouts.base')
 
 @section('body')
-
             <div class="component">
                 <h2>Ko zove danas?</h2>
                 <button class="cn-button" id="cn-button">NISAM!</button>

@@ -26,8 +26,10 @@
          </header>
 
          <section>
+         <!--
             <p>Santa Maria 042/330 000</p>
             <p>Kneginečka Hiža 042/690 193</p>
             <p>Zalogajnica Šanjek 042/212-718</p>
+            -->
          </section>
 @stop
