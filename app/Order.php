@@ -29,4 +29,11 @@ class Order extends Model
     public function getVotes(){
         return Vote::where('order_id','=',$this->id)->get();
     }
+
+    public static function today(){
+        return Order::where('date', '>', date('Y-m-d 00:00:00'))->where('date', '<', date('Y-m-d 23:59:59'))->first();
+    }
+    public function getDateFormatedAttribute() {
+        return str_replace('-', '/', $this->date);
+    }
 }

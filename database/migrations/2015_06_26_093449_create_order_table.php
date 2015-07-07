@@ -16,7 +16,7 @@ class CreateOrderTable extends Migration
 
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->date('date')->nullable();
+            $table->dateTime('date')->nullable();
 
             $table->enum('status', array('CREATED','FINISHED'))->default('CREATED');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
