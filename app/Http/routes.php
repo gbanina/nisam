@@ -33,6 +33,10 @@ Route::group( [
             'as' => 'main.create' ,
             'uses' => 'MainController@create'
         ] );
+        get( '/main/{id}' , [
+            'as' => 'main.vote' ,
+            'uses' => 'MainController@vote'
+        ] );
     } );
 
 Route::controllers([

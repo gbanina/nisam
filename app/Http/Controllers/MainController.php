@@ -2,31 +2,68 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Redirect;
+use App\Util\OrderUtil;
+use App\Util\UserUtil;
 use App\User;
 use App\Order;
 use App\Rule;
 use App\UserOrder;
+use App\Place;
+use App\Vote;
 use Input;
 use Auth;
 
 class MainController extends Controller {
 
     public function index() {
-        $users = User::all();
-        $orders = UserOrder::where('order_id','=', $this->getOrder()->id)->get();
+        $todayOrder = Order::today();
 
-        $myOrder = $orders->filter(function($item) {
-            return $item->user_id == Auth::user()->id;
-        })->first();
+        if($todayOrder == null){
+                // create countdown
+                var_dump('start');
+                $places = Place::all();
+                $view = view('main.vote');
+                $view->with('places', $places);
+                $view->with('me', Auth::user()->name);
+        }else{
+            if($todayOrder->status == 'CREATED' || !OrderUtil::isExpired($todayOrder)){
 
-        if($myOrder == null)    $myOrder = '';
-        else                    $myOrder = $myOrder->desc;
+                $myVote = Vote::where('user_id','=', Auth::user()->id)->where('order_id','=', $todayOrder->id);
 
-        $view = view('main.index');
-        $view->with('users', $users);
-        $view->with('orders', $orders);
-        $view->with('nextUser', $this->getNextUser());
-        $view->with('myorder', $myOrder);
+                if($myVote->first() == null){
+                    var_dump('vote');
+                    $view = view('main.vote');
+                }
+                else{
+                    var_dump('wait');
+                    $view = view('main.wait');
+                    $view->with('myVote', $myVote->first());
+                    $view->with('expire', $todayOrder->dateFormated);
+                }
+
+                $places = Place::all();
+                $view->with('places', $places);
+                $view->with('me', Auth::user()->name);
+            }else{
+                // vote closed, order your food
+                var_dump('order');
+                $view = view('main.index');
+                $users = User::all();
+                $orders = UserOrder::where('order_id','=', $todayOrder->id)->get();
+
+                $myOrder = $orders->filter(function($item) {
+                    return $item->user_id == Auth::user()->id;
+                })->first();
+
+                if($myOrder == null)    $myOrder = '';
+                else                    $myOrder = $myOrder->desc;
+
+                $view->with('users', $users);
+                $view->with('orders', $orders);
+                $view->with('nextUser', UserUtil::nextUser());
+                $view->with('myorder', $myOrder);
+            }
+        }
 
         return $view;
     }
@@ -44,37 +81,19 @@ class MainController extends Controller {
 
         return Redirect::to('main');
     }
+    public function vote($id){
+        //$order = Order::today();
 
-    private function getOrder(){
-        $today = date('Y-m-d');
-        $todayOrder = Order::where('date', '=', $today)->get();
+        //dd(UserUtil::nextUser());
+        $order = OrderUtil::todayOrder();
 
-        if($todayOrder->isEmpty()){
-            $todayOrder = new Order;
-            $todayOrder->date = $today;
-            $todayOrder->user_id = $this->getNextUser()->id;
-            $todayOrder->save();
-        }
+        $vote = new Vote;
+        $vote->user_id = Auth::user()->id;
+        $vote->order_id = $order->id;
+        $vote->place_id = $id;
 
-        return $todayOrder->first();
+        $vote->save();
+
+        return Redirect::to('main');
     }
-
-    private function getNextUser(){
-        $users = User::with('order')->get()->sortBy(function($user) {
-            return $user->order->count();
-        });
-
-        foreach ($users as $user){
-            $rules = Rule::forUser($user->id);
-            if($rules->count() == 0)
-                return $user;
-
-            foreach($rules as $rule){
-                    $condition = false;
-                    eval('$condition = ' . $rule->condition . ';');
-                    if(!$condition)
-                        return $user;
-                }
-            }
-        }
 }
