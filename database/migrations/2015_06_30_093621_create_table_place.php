@@ -15,6 +15,7 @@ class CreateTablePlace extends Migration
         Schema::create('place', function($table){
             $table->increments('id');
             $table->string('name');
+            $table->string('short');
             $table->string('phone');
             $table->text('link')->nullable();
 
