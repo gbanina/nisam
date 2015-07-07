@@ -21,6 +21,9 @@ class CreateVoteTable extends Migration
             $table->integer('order_id')->unsigned();
             $table->foreign('order_id')->references('id')->on('order')->onDelete('cascade');
 
+            $table->integer('place_id')->unsigned();
+            $table->foreign('place_id')->references('id')->on('place')->onDelete('cascade');
+
             // Generic
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();

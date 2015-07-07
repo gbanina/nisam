@@ -25,4 +25,9 @@ class Vote extends Model
      * @var array
      */
     protected $hidden = [];
+
+    public function getPlaceAttribute()
+    {
+        return  Place::find($this->place_id);
+    }
 }
