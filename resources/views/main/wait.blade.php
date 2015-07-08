@@ -14,7 +14,7 @@
             </div>
             <header>
                 <h1>{{$me}},
-                    <span>Glasal si za {{$myVote->place->name}} Još stigneš promeniti!</span>
+                    <span>{{$infoMsg}}</span>
                 </h1>
             </header>
         <script>

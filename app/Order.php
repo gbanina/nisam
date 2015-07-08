@@ -26,6 +26,12 @@ class Order extends Model
      */
     protected $hidden = [];
 
+    public function vote(){
+        return $this->hasMany('App\Vote','order_id');
+    }
+    public function place(){
+        return $this->belongsTo('App\Place','place_id');
+    }
     public function getVotes(){
         return Vote::where('order_id','=',$this->id)->get();
     }
@@ -35,5 +41,9 @@ class Order extends Model
     }
     public function getDateFormatedAttribute() {
         return str_replace('-', '/', $this->date);
+    }
+
+    public function getCountVotesAttribute(){
+        return  Vote::where('order_id', '=', $this->id)->get();
     }
 }

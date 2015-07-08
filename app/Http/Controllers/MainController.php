@@ -26,20 +26,22 @@ class MainController extends Controller {
                 $view->with('places', $places);
                 $view->with('me', Auth::user()->name);
         }else{
-            if($todayOrder->status == 'CREATED' || !OrderUtil::isExpired($todayOrder)){
+            if($todayOrder->status == 'CREATED' && !OrderUtil::isExpired($todayOrder)){
 
                 $myVote = Vote::where('user_id','=', Auth::user()->id)->where('order_id','=', $todayOrder->id);
 
                 if($myVote->first() == null){
                     var_dump('vote');
-                    $view = view('main.vote');
+                    $view = view('main.wait');
+                    $view->with('infoMsg', 'Nema još puno vremena! Kam danas idemo jesti?');
                 }
                 else{
                     var_dump('wait');
                     $view = view('main.wait');
+                    $view->with('infoMsg', 'Glasal si za ' . $myVote->first()->place->name . ' još stignes promeniti.');
                     $view->with('myVote', $myVote->first());
-                    $view->with('expire', $todayOrder->dateFormated);
                 }
+                $view->with('expire', $todayOrder->dateFormated);
 
                 $places = Place::all();
                 $view->with('places', $places);
@@ -49,9 +51,9 @@ class MainController extends Controller {
                 var_dump('order');
                 $view = view('main.index');
                 $users = User::all();
-                $orders = UserOrder::where('order_id','=', $todayOrder->id)->get();
+                $userOrders = UserOrder::where('order_id','=', $todayOrder->id)->get();
 
-                $myOrder = $orders->filter(function($item) {
+                $myOrder = $userOrders->filter(function($item) {
                     return $item->user_id == Auth::user()->id;
                 })->first();
 
@@ -59,9 +61,10 @@ class MainController extends Controller {
                 else                    $myOrder = $myOrder->desc;
 
                 $view->with('users', $users);
-                $view->with('orders', $orders);
+                $view->with('orders', $userOrders);
                 $view->with('nextUser', UserUtil::nextUser());
                 $view->with('myorder', $myOrder);
+                $view->with('place', $todayOrder->place->name);
             }
         }
 

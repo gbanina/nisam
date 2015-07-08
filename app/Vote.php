@@ -30,4 +30,7 @@ class Vote extends Model
     {
         return  Place::find($this->place_id);
     }
+    public function count(){
+        return Vote::where('order_id', '=', $this->order_id)->count();
+    }
 }

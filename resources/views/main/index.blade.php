@@ -14,7 +14,9 @@
             </div>
 
             <header>
-                <h1>{{$nextUser->name}}... <span>Na tebi je red da naručiš!</span></h1>
+                <h1>{{$nextUser->name}}...
+                    <span>Idemo u {{$place}}. Na tebi je red da naručiš!</span>
+                </h1>
                 <nav class="codrops-demos">
                     {!! Form::open(array('route' => 'main.create','id' => 'order-form')) !!}
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
