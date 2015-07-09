@@ -5,6 +5,7 @@ namespace App\Util;
 use App\User;
 use App\Order;
 use App\Rule;
+use App\Vote;
 
 class UserUtil{
 
@@ -25,5 +26,9 @@ class UserUtil{
                         return $user;
                 }
             }
+        }
+        public static function myVote($me){
+            return Vote::where('user_id','=', $me->id)
+                        ->where('order_id','=', Order::today()->id)->first();
         }
 }

@@ -30,8 +30,8 @@ Route::group( [
             'uses' => 'MainController@index'
         ] );
         post( '/main' , [
-            'as' => 'main.create' ,
-            'uses' => 'MainController@create'
+            'as' => 'main.order' ,
+            'uses' => 'MainController@order'
         ] );
         get( '/main/{id}' , [
             'as' => 'main.vote' ,

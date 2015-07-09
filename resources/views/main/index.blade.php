@@ -15,10 +15,10 @@
 
             <header>
                 <h1>{{$nextUser->name}}...
-                    <span>Idemo u {{$place}}. Na tebi je red da naručiš!</span>
+                    <span>Idemo u {{$place}}. Na tebi je red da <a href="#">nazoveš!</a></span>
                 </h1>
                 <nav class="codrops-demos">
-                    {!! Form::open(array('route' => 'main.create','id' => 'order-form')) !!}
+                    {!! Form::open(array('route' => 'main.order','id' => 'order-form')) !!}
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <textarea class="area_better" rows="4" cols="50" type="text" name="desc" id="desc">{{$myorder}}</textarea><br>
                      <a href="#" onclick="document.getElementById('order-form').submit();">Naruci!</a>
