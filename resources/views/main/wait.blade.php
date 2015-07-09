@@ -7,7 +7,7 @@
                 <div class="cn-wrapper" id="cn-wrapper">
                     <ul>
                         @foreach ($places as $place)
-                            <li><a href="{{{ route('main.vote', $place->id) }}}"><span>{{ $place->short }}</span></a></li>
+                            <li><a href="{{{ route('main.vote', $place->id) }}}"><span>{{ $place->short }} ({{ $place->todayVotessCount }})</span></a></li>
                         @endforeach
                      </ul>
                 </div>
