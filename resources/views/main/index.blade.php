@@ -15,7 +15,7 @@
 
             <header>
                 <h1>{{$nextUser->name}}...
-                    <span>Idemo u {{$place}}. Na tebi je red da <a href="#">nazoveš!</a></span>
+                    <span>Idemo u {{$place->name}}. Na tebi je red da <a href="#">nazoveš!</a></span>
                 </h1>
                 <nav class="codrops-demos">
                     {!! Form::open(array('route' => 'main.order','id' => 'order-form')) !!}
@@ -27,6 +27,7 @@
             </header>
 
             <section>
+                <h2><a href="{{$place->link}}">{{$place->short}}</a> ({{$place->phone}})</h2>
                 @foreach ($orders as $order)
                     <p>{{$order->userFull->name}} - {{$order->desc}}</p>
                 @endforeach
