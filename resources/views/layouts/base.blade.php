@@ -31,7 +31,7 @@
       <div class="container">
             <!-- Top Navigation -->
             <div class="codrops-top clearfix">
-                <a class=" codrops-icon codrops-icon-drop" href="https://github.com/gbanina/whose-turn-is-it.git"><span>Nisam GitHub</span></a>
+                <a class=" codrops-icon codrops-icon-drop" href="https://github.com/gbanina/nisam.git"><span>Nisam GitHub</span></a>
                 @if(Auth::guest())
                     <span class="right"><a class="codrops-icon codrops-icon-prev" href="http://influendo.com/"><span>Influendo Interweb</span></a></span>
                 @else
