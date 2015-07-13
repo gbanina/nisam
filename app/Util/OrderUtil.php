@@ -3,6 +3,7 @@
 namespace App\Util;
 
 use App\User;
+use App\Models\Admin;
 use App\Models\Order;
 use App\Util\UserUtil;
 use DB;
@@ -13,6 +14,7 @@ class OrderUtil{
         $order = OrderUtil::today();
         if($order == null){
             $order = new Order;
+            $lifetime = Admin::getValue($group_id, 'vote_expires');
             $order->date = date('Y-m-d H:i:s', strtotime("+10 min"));
             $order->user_id = UserUtil::nextUser($group_id)->id;
             $order->save();
