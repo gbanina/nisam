@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -8,17 +8,16 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-
-class Place extends Model
+class Vote extends Model
 {
-    protected $table = 'place';
+    protected $table = 'vote';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['id', 'name', 'phone','link'];
+    protected $fillable = ['id', 'user_id', 'order_id'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -27,13 +26,11 @@ class Place extends Model
      */
     protected $hidden = [];
 
-    public function getTodayVotessCountAttribute(){
-        $order = Order::today();
-
-        if($order  == null) return '0';
-
-        return Vote::where('order_id','=', $order->id)
-                    ->where('place_id','=', $this->id)
-                    ->count();
+    public function getPlaceAttribute()
+    {
+        return  Place::find($this->place_id);
+    }
+    public function count(){
+        return Vote::where('order_id', '=', $this->order_id)->count();
     }
 }

@@ -6,11 +6,11 @@ use Illuminate\Support\Facades\Redirect;
 use App\Util\OrderUtil;
 use App\Util\UserUtil;
 use App\User;
-use App\Order;
-use App\Rule;
-use App\UserOrder;
-use App\Place;
-use App\Vote;
+use App\Models\Order;
+use App\Models\Rule;
+use App\Models\UserOrder;
+use App\Models\Place;
+use App\Models\Vote;
 
 class WizzardMain{
 
@@ -52,7 +52,7 @@ class WizzardMain{
     }
     public function order(){
         $view = view('main.index');
-        $users = User::all();
+        $users = User::getUsersByGroup($this->loggedUser->group_id);
         $userOrders = UserOrder::where('order_id','=', $this->todayOrder->id)->get();
 
         $myOrder = $userOrders->filter(function($item) {
@@ -64,7 +64,7 @@ class WizzardMain{
 
         $view->with('users', $users);
         $view->with('orders', $userOrders);
-        $view->with('nextUser', UserUtil::nextUser());
+        $view->with('nextUser', UserUtil::nextUser($this->loggedUser->group_id));
         $view->with('myorder', $myOrder);
         $view->with('place', $this->todayOrder->place);
 

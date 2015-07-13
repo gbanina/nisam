@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Models\Order;
+
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -40,6 +42,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     protected $hidden = ['password', 'remember_token'];
 
     public function order(){
-        return $this->hasMany('App\UserOrder','user_id');
+        return $this->hasMany('App\Models\UserOrder','user_id');
+    }
+
+    public function group(){
+        return $this->belongsTo('App\Models\Group','group_id');
+    }
+    public static function getUsersByGroup($group_id){
+        return User::where('group_id','=', $group_id)->get();
     }
 }

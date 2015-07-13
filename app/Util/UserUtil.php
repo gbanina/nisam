@@ -3,14 +3,14 @@
 namespace App\Util;
 
 use App\User;
-use App\Order;
-use App\Rule;
-use App\Vote;
+use App\Models\Order;
+use App\Models\Rule;
+use App\Models\Vote;
 
 class UserUtil{
 
-    public static function nextUser(){
-        $users = User::with('order')->get()->sortBy(function($user) {
+    public static function nextUser($group_id){
+        $users = User::with('order')->where('group_id','=', $group_id)->get()->sortBy(function($user) {
             return $user->countOrders;
         });
 

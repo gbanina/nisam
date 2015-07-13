@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -8,16 +8,16 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class UserOrder extends Model
+class Group extends Model
 {
-    protected $table = 'user_order';
+    protected $table = 'group';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['id', 'user_id', 'desc'];
+    protected $fillable = ['id', 'name'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -26,8 +26,4 @@ class UserOrder extends Model
      */
     protected $hidden = [];
 
-    public function getUserFullAttribute()
-    {
-        return  User::find($this->user_id);
-    }
 }

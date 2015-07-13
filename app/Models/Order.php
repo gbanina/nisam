@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -27,10 +27,10 @@ class Order extends Model
     protected $hidden = [];
 
     public function vote(){
-        return $this->hasMany('App\Vote','order_id');
+        return $this->hasMany('App\Models\Vote','order_id');
     }
     public function place(){
-        return $this->belongsTo('App\Place','place_id');
+        return $this->belongsTo('App\Models\Place','place_id');
     }
     public function getVotes(){
         return Vote::where('order_id','=',$this->id)->get();

@@ -6,11 +6,11 @@ use App\Util\OrderUtil;
 use App\Util\UserUtil;
 use App\Util\WizzardMain;
 use App\User;
-use App\Order;
-use App\Rule;
-use App\UserOrder;
-use App\Place;
-use App\Vote;
+use App\Models\Order;
+use App\Models\Rule;
+use App\Models\UserOrder;
+use App\Models\Place;
+use App\Models\Vote;
 use Input;
 use Auth;
 
@@ -53,7 +53,7 @@ class MainController extends Controller {
         return Redirect::to('main');
     }
     public function vote($id){
-        $order = OrderUtil::todayOrder();
+        $order = OrderUtil::todayOrder(Auth::user()->group_id);
         $myVote = UserUtil::myVote(Auth::user());
 
         $vote = new Vote;

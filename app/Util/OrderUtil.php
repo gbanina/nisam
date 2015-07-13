@@ -3,18 +3,18 @@
 namespace App\Util;
 
 use App\User;
-use App\Order;
+use App\Models\Order;
 use App\Util\UserUtil;
 use DB;
 
 class OrderUtil{
 
-    public static function todayOrder(){
+    public static function todayOrder($group_id){
         $order = OrderUtil::today();
         if($order == null){
             $order = new Order;
             $order->date = date('Y-m-d H:i:s', strtotime("+10 min"));
-            $order->user_id = UserUtil::nextUser()->id;
+            $order->user_id = UserUtil::nextUser($group_id)->id;
             $order->save();
         }
 
