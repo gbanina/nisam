@@ -14,7 +14,7 @@ class AddGroupToUser extends Migration
     {
         Schema::table('users', function($table){
             $table->integer('group_id');
-            $table->foreign('group_id')->references('id')->on('group')->onDelete('cascade');
+            //$table->foreign('group_id')->references('id')->on('group')->onDelete('cascade');
         });
     }
 

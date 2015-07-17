@@ -17,6 +17,7 @@ class CreateUserOrderTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('order_id')->unsigned();
+			$table->integer('place_id')->unsigned();
             $table->text('desc')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

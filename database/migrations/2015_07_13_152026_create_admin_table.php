@@ -18,7 +18,7 @@ class CreateAdminTable extends Migration
             $table->string('key');
             $table->text('value');
 
-            $table->foreign('group_id')->references('id')->on('group')->onDelete('cascade');
+            //$table->foreign('group_id')->references('id')->on('group')->onDelete('cascade');
 
             // Generic
             $table->timestamps();
