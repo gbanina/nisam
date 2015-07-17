@@ -21,9 +21,13 @@ Route::group( [
     'middleware' => 'auth' ,
         ] , function() {
 
-        get( '/profile/{user}' , [
+        get( '/profile' , [
             'as' => 'profile' ,
             'uses' => 'ProfileController@index'
+        ] );
+        post( '/profile' , [
+            'as' => 'profile.update' ,
+            'uses' => 'ProfileController@update'
         ] );
         get( '/main' , [
             'as' => 'main' ,

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAdminTable extends Migration
+class AddGroupToUser extends Migration
 {
     /**
      * Run the migrations.
@@ -12,19 +12,9 @@ class CreateAdminTable extends Migration
      */
     public function up()
     {
-        Schema::create('admin', function($table){
-            $table->increments('id');
+        Schema::table('users', function($table){
             $table->integer('group_id');
-            $table->string('key');
-            $table->text('value');
-
             //$table->foreign('group_id')->references('id')->on('group')->onDelete('cascade');
-
-            // Generic
-            $table->timestamps();
-            $table->softDeletes();
-
-            $table->engine = 'InnoDB';
         });
     }
 

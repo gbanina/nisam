@@ -6,17 +6,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Nisam!</title>
         <meta name="author" content="Goran Banina" />
-        <link rel="shortcut icon" href="../favicon.ico">
-        <link rel="stylesheet" type="text/css" href="css/normalize.css" />
-        <link rel="stylesheet" type="text/css" href="css/demo.css" />
-        <link rel="stylesheet" type="text/css" href="css/component2.css" />
-        <link rel="stylesheet" type="text/css" href="css/elements.css" />
+        <link rel="shortcut icon" href="{{URL::to('/favicon.ico')}}">
+        <link rel="stylesheet" type="text/css" href="{{URL::to('css/normalize.css')}}" />
+        <link rel="stylesheet" type="text/css" href="{{URL::to('css/demo.css')}}" />
+        <link rel="stylesheet" type="text/css" href="{{URL::to('css/component2.css')}}" />
+        <link rel="stylesheet" type="text/css" href="{{URL::to('css/elements.css')}}" />
 
-        <script src="js/modernizr-2.6.2.min.js"></script>
+        <script src="{{URL::to('js/modernizr-2.6.2.min.js')}}"></script>
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
-        <script type="text/javascript" src="jquery.label_better.js"></script>
-        <script type="text/javascript" src="js/jquery.countdown.min.js"></script>
+        <script type="text/javascript" src="{{URL::to('jquery.label_better.js')}}"></script>
+        <script type="text/javascript" src="{{URL::to('js/jquery.countdown.min.js')}}"></script>
 
         <script>
           $(document).ready( function() {
@@ -36,12 +36,13 @@
                     <span class="right"><a class="codrops-icon codrops-icon-prev" href="http://influendo.com/"><span>Influendo Interweb</span></a></span>
                 @else
                     <span class="right"><a class="codrops-icon codrops-icon-prev" href="{{ route('logout') }}"><span>Logout {{ Auth::user()->name }}</span></a></span>
+                    <span class="right"><a class="codrops-icon codrops-icon-up" href="{{ URL::to('profile' )}}"><span>Moj Profil</span></a></span>
                 @endif
             </div>
 
          @yield('body')
 
       </div>
-         <script src="js/polyfills.js"></script>
+         <script src="{{URL::to('js/polyfills.js')}}"></script>
     </body>
 </html>
