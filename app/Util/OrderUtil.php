@@ -15,7 +15,12 @@ class OrderUtil{
         if($order == null){
             $order = new Order;
             $lifetime = Admin::getValue($group_id, 'vote_expires');
-            $order->date = date('Y-m-d H:i:s', strtotime("+10 min"));
+            $time = "+10 min";
+            if($lifetime->count() > 0){
+                $first = $lifetime->first();
+                $time = $first->value;
+            }
+            $order->date = date('Y-m-d H:i:s', strtotime($time));
             $order->user_id = UserUtil::nextUser($group_id)->id;
             $order->save();
         }
