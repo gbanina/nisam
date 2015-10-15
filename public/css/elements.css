@@ -186,6 +186,8 @@
       border-radius: 25px;
       font-size: 16px;
       outline: none;
+      min-width: 480px;
+      min-height: 41px;
     }
     .timer {
       font-size: 35px !important;
