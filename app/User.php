@@ -24,7 +24,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function getCountOrdersAttribute()
     {
-        return  Order::where('user_id', '=', $this->id)->count();
+        return  Order::where('user_id', '=', $this->id)->where('status','=','CLOSED')->count();
     }
 
     /**
