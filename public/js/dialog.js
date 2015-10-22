@@ -12,7 +12,7 @@
                         type: "GET",
                         data: { order: "done" },
                         success: function( responseText ) {
-                            //$("#dialogResponse").html( responseText );
+                            location.reload();
                         }
                     });
           $( this ).dialog( "close" );
