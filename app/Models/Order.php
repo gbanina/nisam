@@ -32,6 +32,9 @@ class Order extends Model
     public function place(){
         return $this->belongsTo('App\Models\Place','place_id');
     }
+    public function user(){
+        return $this->belongsTo('App\User','user_id');
+    }
     public function getVotes(){
         return Vote::where('order_id','=',$this->id)->get();
     }

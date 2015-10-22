@@ -7,7 +7,7 @@
                 <div class="cn-wrapper" id="cn-wrapper">
                     <ul>
                         @foreach ($users as $user)
-                            <li><a href="#"><span>{{ $user->name }}<small>({{ $user->countOrders }})</small></span></a></li>
+                            <li><a href="#" title="{{ $user->name }} je zvao {{ $user->countOrders }} puta."><span>{{ $user->name }}</span></a></li>
                         @endforeach
                      </ul>
                 </div>
@@ -15,23 +15,43 @@
 
             <header>
                 <h1>{{$nextUser->name}}...
-                    <span>Idemo u {{$place->name}}. Na tebi je red da <a href="#">nazoveš!</a></span>
-                </h1>
-                <nav class="codrops-demos">
-                    {!! Form::open(array('route' => 'main.order','id' => 'order-form')) !!}
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <textarea class="area_better" rows="4" cols="50" type="text" name="desc" id="desc">{{$myorder}}</textarea><br>
-                     <a href="#" onclick="document.getElementById('order-form').submit();">Naruci!</a>
+                    <span>Idemo u {{$place->name}}. Na tebi je red da <a href="#"  onclick="$( '#dialog' ).dialog( 'open' )">nazoveš!</a></span>
+                    {!! Form::open(array('route' => 'main.changeUser','id' => 'chainge-form')) !!}
                     {!! Form::close() !!}
-                </nav>
+                </h1>
+
+                @if ($status != 'CLOSED')
+                    <nav class="codrops-demos">
+                        {!! Form::open(array('route' => 'main.order','id' => 'order-form')) !!}
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <textarea class="area_better" rows="4" cols="50" type="text" name="desc" id="desc">{{$myorder}}</textarea><br>
+                         <a href="#" onclick="document.getElementById('order-form').submit();">Naruci!</a>
+                         ili budi drug i
+                         <a href="#" onclick="document.getElementById('chainge-form').submit();">Preuzmi odgovornost!</a>
+                        {!! Form::close() !!}
+                    </nav>
+                @else
+                    <nav class="codrops-demos">
+                        <h1>Svi su narucili i {{$nextUser->name}} je nazval. Dobar tek!</h1>
+                    </nav>
+                @endif
+
             </header>
 
             <section>
-                <h2><a href="{{$place->link}}">{{$place->short}}</a> ({{$place->phone}})</h2>
+                <h2><a href="{{$place->link}}">{{$place->short}}</a></h2>
                 @foreach ($orders as $order)
                     <p>{{$order->userFull->name}} - {{$order->desc}}</p>
                 @endforeach
             </section>
 
-        <script src="js/demo2.js"></script>
+<div id="dialog" title="Zoveš : {{$place->short}} - {{$place->phone}}">
+    @foreach ($orders as $order)
+        <p>{{$order->userFull->name}} - {{$order->desc}}</p>
+    @endforeach
+</div>
+
+<script src="js/dialog.js"></script>
+<script src="js/demo2.js"></script>
+
 @stop

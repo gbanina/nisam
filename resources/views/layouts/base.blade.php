@@ -11,10 +11,14 @@
         <link rel="stylesheet" type="text/css" href="{{URL::to('css/demo.css')}}" />
         <link rel="stylesheet" type="text/css" href="{{URL::to('css/component2.css')}}" />
         <link rel="stylesheet" type="text/css" href="{{URL::to('css/elements.css')}}" />
+        <link rel="stylesheet" href="{{URL::to('css/jquery-ui.css')}}">
+
+
 
         <script src="{{URL::to('js/modernizr-2.6.2.min.js')}}"></script>
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <script type="text/javascript" src="{{URL::to('jquery.label_better.js')}}"></script>
         <script type="text/javascript" src="{{URL::to('js/jquery.countdown.min.js')}}"></script>
 

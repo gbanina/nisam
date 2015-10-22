@@ -70,4 +70,18 @@ class MainController extends Controller {
 
         return Redirect::to('main');
     }
+    public function changeUser(){
+        $order = OrderUtil::todayOrder(Auth::user()->group_id);
+        $order->user_id = Auth::user()->id;
+        $order->save();
+
+        return Redirect::to('main');
+    }
+    public function finishOrder(){
+        $order = OrderUtil::todayOrder(Auth::user()->group_id);
+        $order->status = 'CLOSED';
+        $order->save();
+
+        return $order;
+    }
 }

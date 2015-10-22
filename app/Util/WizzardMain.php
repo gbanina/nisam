@@ -64,9 +64,10 @@ class WizzardMain{
 
         $view->with('users', $users);
         $view->with('orders', $userOrders);
-        $view->with('nextUser', UserUtil::nextUser($this->loggedUser->group_id));
+        $view->with('nextUser', $this->todayOrder->user);
         $view->with('myorder', $myOrder);
         $view->with('place', $this->todayOrder->place);
+        $view->with('status', $this->todayOrder->status);
 
         return $view;
     }

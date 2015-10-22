@@ -37,6 +37,14 @@ Route::group( [
             'as' => 'main.order' ,
             'uses' => 'MainController@order'
         ] );
+        post( '/main{id}' , [
+            'as' => 'main.changeUser' ,
+            'uses' => 'MainController@changeUser'
+        ] );
+        get( '/main/finishOrder' , [
+            'as' => 'main.finishOrder' ,
+            'uses' => 'MainController@finishOrder'
+        ] );
         get( '/main/{id}' , [
             'as' => 'main.vote' ,
             'uses' => 'MainController@vote'
