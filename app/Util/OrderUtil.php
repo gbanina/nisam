@@ -20,7 +20,12 @@ class OrderUtil{
                 $first = $lifetime->first();
                 $time = $first->value;
             }
-            $order->date = date('Y-m-d H:i:s', strtotime($time));
+
+            if (date("Y-m-d H:i:s A") > date("Y-m-d 10:30:00 AM"))
+                $order->date = date('Y-m-d H:i:s', strtotime($time));
+            else
+                $order->date = date('Y-m-d 10:30:00');
+
             $order->user_id = UserUtil::nextUser($group_id)->id;
             $order->save();
         }
