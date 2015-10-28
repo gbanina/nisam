@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Place extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'place';
 
     /**
@@ -27,10 +29,11 @@ class Place extends Model
      */
     protected $hidden = [];
 
-    public function getTodayVotessCountAttribute(){
+    public function getTodayVotessCountAttribute()
+    {
         $order = Order::today();
 
-        if($order  == null) return '0';
+        if ($order == null) return '0';
 
         return Vote::where('order_id','=', $order->id)
                     ->where('place_id','=', $this->id)
