@@ -26,4 +26,12 @@
 
 $( document ).ready(function() {
 	$( "#cn-button" ).click();
+	
+	// added submit by pressing Enter while in textarea
+	$("#desc").on( "keypress", function(event) {
+	    if (event.which == 13 && !event.shiftKey) {
+	        event.preventDefault();
+	        $("#order-form").submit();
+	    }
+	});
 });
