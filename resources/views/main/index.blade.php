@@ -12,15 +12,14 @@
                      </ul>
                 </div>
             </div>
-
             <header>
+                @if ($status != 'CLOSED')
+                
                 <h1>{{$nextUser->name}}...
                     <span>Idemo u {{$place->name}}. Na tebi je red da <a href="#"  onclick="$( '#dialog' ).dialog( 'open' )">nazoveš!</a></span>
                     {!! Form::open(array('route' => 'main.changeUser','id' => 'chainge-form')) !!}
                     {!! Form::close() !!}
                 </h1>
-
-                @if ($status != 'CLOSED')
                     <nav class="codrops-demos">
                         {!! Form::open(array('route' => 'main.order','id' => 'order-form')) !!}
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
