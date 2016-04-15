@@ -12,6 +12,7 @@
         <link rel="stylesheet" type="text/css" href="{{URL::to('css/component2.css')}}" />
         <link rel="stylesheet" type="text/css" href="{{URL::to('css/elements.css')}}" />
         <link rel="stylesheet" href="{{URL::to('css/jquery-ui.css')}}">
+		<link rel="stylesheet" href="{{URL::to('css/jquery.piemenu.css')}}">
 
 
 
@@ -21,6 +22,7 @@
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <script type="text/javascript" src="{{URL::to('jquery.label_better.js')}}"></script>
         <script type="text/javascript" src="{{URL::to('js/jquery.countdown.min.js')}}"></script>
+		<script type="text/javascript" src="{{URL::to('js/jquery.piemenu.js')}}"></script>
 
         <script>
           $(document).ready( function() {

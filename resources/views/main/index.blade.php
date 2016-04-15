@@ -3,14 +3,11 @@
 @section('body')
             <div class="component">
                 <h2>Ko zove danas?</h2>
-                <button class="cn-button" id="cn-button">NISAM!</button>
-                <div class="cn-wrapper" id="cn-wrapper">
-                    <ul>
+                    <ul data-piemenu-autoinit="1" data-piemenu-range="360">
                         @foreach ($users as $user)
                             <li><a href="#" title="{{ $user->name }} je zvao {{ $user->countOrders }} puta."><span>{{ $user->name }}</span></a></li>
                         @endforeach
                      </ul>
-                </div>
             </div>
             <header>
                 @if ($status != 'CLOSED')
