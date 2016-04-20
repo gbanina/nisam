@@ -1,31 +1,16 @@
-(function(){
-
-	var button = document.getElementById('cn-button'),
-    wrapper = document.getElementById('cn-wrapper');
-
-    //open and close menu when the button is clicked
-	var open = false;
-	button.addEventListener('click', handler, true);
-
-	function handler(){
-	  if(!open){
-	    this.innerHTML = "Zatvori";
-	    classie.add(wrapper, 'opened-nav');
-	  }
-	  else{
-	    this.innerHTML = "NISAM!";
-		classie.remove(wrapper, 'opened-nav');
-	  }
-	  open = !open;
-	}
-	function closeWrapper(){
-		classie.remove(wrapper, 'opened-nav');
-	}
-
-})();
-
 $( document ).ready(function() {
 	$( "#cn-button" ).click();
+	
+	var $body = $("body");
+	var $wrap = $(".piemenu");
+	var $pie  = $wrap.find("ul");
+
+	$pie.on("piemenutoggle", function() {
+	  $body
+		.removeClass("piemenuopen")
+		.addClass($wrap.hasClass("active") ? "piemenuopen" : "_temp")
+		.removeClass("_temp")
+	});
 	
 	// added submit by pressing Enter while in textarea
 	$("#desc").on( "keypress", function(event) {
@@ -35,3 +20,4 @@ $( document ).ready(function() {
 	    }
 	});
 });
+

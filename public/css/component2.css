@@ -15,6 +15,7 @@ body {
 body {
 	background: #52be7f;
 	color: #fff;
+	overflow-y: scroll;
 }
 
 .component {

@@ -193,6 +193,7 @@
 		 */
 		toggle: function() {
 			this.$ui.wrapper.toggleClass("active");
+			this.$ui.ul.trigger("piemenutoggle");
 		},
 
 		/**

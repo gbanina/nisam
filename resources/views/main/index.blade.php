@@ -35,7 +35,7 @@
             </header>
 
             <section>
-                <h2><a href="{{$place->link}}">{{$place->short}}</a></h2>
+                <h2><a href="{{$place->link}}" target="_blank">{{$place->short}}</a></h2>
                 @foreach ($orders as $order)
                     <p>{{$order->userFull->name}} - {{$order->desc}}</p>
                 @endforeach

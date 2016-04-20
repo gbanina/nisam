@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('body')
-         <div class="component">
+         <div class="component myprofile">
             <h2>Profile Edit</h2>
             <!-- Start Nav Structure -->
             <button onclick="document.getElementById('login-form').submit();" class="cn-button" id="cn-button">Spremi</button>
