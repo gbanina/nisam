@@ -22,5 +22,6 @@
                     window.location.href = "{{ route('main') }}";
                 });
         </script>
+		<script src="js/demo2.js"></script>
 
 @stop

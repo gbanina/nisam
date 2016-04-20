@@ -16,5 +16,7 @@
                     <span>Preuzmi inicijativu! Kam idemo jest?</span>
                 </h1>
             </header>
+			
+			<script src="js/demo2.js"></script>
 
 @stop
