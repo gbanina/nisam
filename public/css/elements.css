@@ -192,3 +192,10 @@
     .timer {
       font-size: 35px !important;
     }
+
+.login {
+    text-align: left !important;
+}
+.myprofile {
+    text-align: left !important;
+}

@@ -15,6 +15,7 @@ body {
 body {
 	background: #52be7f;
 	color: #fff;
+	overflow-y: scroll;
 }
 
 .component {
@@ -23,6 +24,7 @@ body {
 	height: 15em;
 	background: rgba(0,0,0,0.05);
 	font-family: 'Lato', Arial, sans-serif;
+	text-align: center;
 }
 
 .component > h2 {

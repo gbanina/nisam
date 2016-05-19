@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('body')
-         <div class="component">
+         <div class="component login">
             <h2>Ko zove danas?</h2>
             <!-- Start Nav Structure -->
             <button onclick="document.getElementById('login-form').submit();" class="cn-button" id="cn-button">Login</button>

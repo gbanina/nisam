@@ -29,6 +29,11 @@ a {
 	background: rgba(0,0,0,0.01);
 }
 
+.piemenuopen .container > header, .piemenuopen .container > section {
+	display: none;
+}
+
+
 .container > header h1 {
 	font-size: 2.625em;
 	line-height: 1.3;

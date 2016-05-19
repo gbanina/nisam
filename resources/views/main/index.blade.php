@@ -3,24 +3,20 @@
 @section('body')
             <div class="component">
                 <h2>Ko zove danas?</h2>
-                <button class="cn-button" id="cn-button">NISAM!</button>
-                <div class="cn-wrapper" id="cn-wrapper">
-                    <ul>
+                    <ul data-piemenu-autoinit="1" data-piemenu-range="360">
                         @foreach ($users as $user)
                             <li><a href="#" title="{{ $user->name }} je zvao {{ $user->countOrders }} puta."><span>{{ $user->name }}</span></a></li>
                         @endforeach
                      </ul>
-                </div>
             </div>
-
             <header>
+                @if ($status != 'CLOSED')
+                
                 <h1>{{$nextUser->name}}...
                     <span>Idemo u {{$place->name}}. Na tebi je red da <a href="#"  onclick="$( '#dialog' ).dialog( 'open' )">nazoveš!</a></span>
                     {!! Form::open(array('route' => 'main.changeUser','id' => 'chainge-form')) !!}
                     {!! Form::close() !!}
                 </h1>
-
-                @if ($status != 'CLOSED')
                     <nav class="codrops-demos">
                         {!! Form::open(array('route' => 'main.order','id' => 'order-form')) !!}
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -48,7 +44,7 @@
             </header>
 
             <section>
-                <h2><a href="{{$place->link}}">{{$place->short}}</a></h2>
+                <h2><a href="{{$place->link}}" target="_blank">{{$place->short}}</a></h2>
                 @foreach ($orders as $order)
                     <p>{{$order->userFull->name}} - {{$order->desc}}</p>
                 @endforeach
