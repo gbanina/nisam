@@ -1,5 +1,6 @@
 /bootstrap/compiled.php
 /config/database.php
+/config/app.php
 /vendor
 .env.*.php
 .env.php

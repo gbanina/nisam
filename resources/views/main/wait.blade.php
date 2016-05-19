@@ -1,14 +1,14 @@
 @extends('layouts.base')
 
 @section('body')
-            <div class="component">
+            <div class="component" ng-app="nisamApp">
                 <h2><span id="clock"></span></h2>
                 <button class="cn-button" id="cn-button">Promeni</button>
-                <div class="cn-wrapper" id="cn-wrapper">
+                <div class="cn-wrapper" id="cn-wrapper" ng-controller="TodosController">
                     <ul>
-                        @foreach ($places as $place)
-                            <li><a href="{{{ route('main.vote', $place->id) }}}"><span>{{ $place->short }} ({{ $place->todayVotessCount }})</span></a></li>
-                        @endforeach
+                        <li ng-repeat="vote in votes">
+                            <a href="{{{ route('main.vote', '') }}}/@{{vote.id}}"><span>@{{vote.short}} (@{{vote.votes}})</span></a>
+                        </li>
                      </ul>
                 </div>
             </div>
@@ -17,6 +17,8 @@
                     <span>{{$infoMsg}}</span>
                 </h1>
             </header>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="js/main.js"></script>
         <script>
             (function(){
 

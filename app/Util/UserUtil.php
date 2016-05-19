@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Util;
-
+use DB;
 use App\User;
 use App\Models\Order;
 use App\Models\Rule;
 use App\Models\Vote;
+use App\Models\UserOrder;
 
 class UserUtil{
 
@@ -30,5 +31,16 @@ class UserUtil{
         public static function myVote($me){
             return Vote::where('user_id','=', $me->id)
                         ->where('order_id','=', Order::today()->id)->first();
+        }
+        public static function myLastOrders($me, $location){
+
+            return DB::table('user_order')
+            ->join('order', 'order.id', '=', 'user_order.order_id')
+            ->select('user_order.*', 'order.place_id')
+            ->where('user_order.user_id','=', $me)
+            ->where('order.place_id','=', $location)
+            ->get();
+
+            //return UserOrder::where('user_id','=', $me)->getOrder()->get();
         }
 }

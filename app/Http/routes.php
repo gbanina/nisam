@@ -80,3 +80,13 @@ get( '/logout' , [
     'as' => 'logout' ,
     'uses' => 'Auth\AuthController@getLogout'
 ] );
+
+get( '/test' , [
+    'as' => 'test.index' ,
+    'uses' => 'TestController@index'
+] );
+
+get( '/votes' , [
+    'as' => 'test.votes' ,
+    'uses' => 'TestController@votes'
+] );

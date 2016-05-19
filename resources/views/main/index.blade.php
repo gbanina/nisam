@@ -24,6 +24,15 @@
                     <nav class="codrops-demos">
                         {!! Form::open(array('route' => 'main.order','id' => 'order-form')) !!}
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                        <select class="area_better">
+                            <option value="" disabled selected>Tvoji zadnji gableci.</option>
+                            @foreach ($lastOrders as $order)
+                                <option value="{{$order->id}}">{{$order->desc}}</option>
+                            @endforeach
+                        </select>
+
+                        <br><br>
                         <textarea class="area_better" rows="4" cols="50" type="text" name="desc" id="desc">{{$myorder}}</textarea><br>
                          <a href="#" onclick="document.getElementById('order-form').submit();">Naruci!</a>
                          ili budi drug i

@@ -17,6 +17,7 @@ use Auth;
 class MainController extends Controller {
 
     public function index() {
+
         $todayOrder = Order::today();
         $wizzard = new WizzardMain(Auth::user(), $todayOrder);
 
