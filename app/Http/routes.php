@@ -90,3 +90,8 @@ get( '/votes' , [
     'as' => 'test.votes' ,
     'uses' => 'TestController@votes'
 ] );
+
+get( '/orders' , [
+    'as' => 'test.orders' ,
+    'uses' => 'TestController@orders'
+] );

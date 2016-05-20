@@ -11,7 +11,7 @@
             </div>
             <header>
                 @if ($status != 'CLOSED')
-                
+
                 <h1>{{$nextUser->name}}...
                     <span>Idemo u {{$place->name}}. Na tebi je red da <a href="#"  onclick="$( '#dialog' ).dialog( 'open' )">nazoveš!</a></span>
                     {!! Form::open(array('route' => 'main.changeUser','id' => 'chainge-form')) !!}
@@ -43,11 +43,11 @@
 
             </header>
 
-            <section>
+            <section ng-controller="OrdersController">
                 <h2><a href="{{$place->link}}" target="_blank">{{$place->short}}</a></h2>
-                @foreach ($orders as $order)
-                    <p>{{$order->userFull->name}} - {{$order->desc}}</p>
-                @endforeach
+                    <div ng-repeat="order in orders">
+                        <p>@{{order.user_id}} - @{{order.desc}}</p>
+                    </div>
             </section>
 
 <div id="dialog" title="Zoveš : {{$place->short}} - {{$place->phone}}">
@@ -55,8 +55,9 @@
         <p>{{$order->userFull->name}} - {{$order->desc}}</p>
     @endforeach
 </div>
-
-<script src="js/dialog.js"></script>
-<script src="js/demo2.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/dialog.js"></script>
+    <script src="js/demo2.js"></script>
 
 @stop

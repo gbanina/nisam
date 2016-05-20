@@ -33,7 +33,7 @@
         </script>
 
     </head>
-    <body>
+    <body ng-app="nisamApp">
       <div class="container">
             <!-- Top Navigation -->
             <div class="codrops-top clearfix">

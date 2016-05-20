@@ -28,4 +28,8 @@ class TestController extends Controller {
 
         return $places;
     }
+    public function orders(){
+        $todayOrder = Order::today();
+        return UserOrder::where('order_id','=', $todayOrder->id)->get();
+    }
 }
