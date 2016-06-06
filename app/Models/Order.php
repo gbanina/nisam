@@ -26,6 +26,10 @@ class Order extends Model
      */
     protected $hidden = [];
 
+    public function getDescFormatted(){
+        return nl2br($this->desc);
+    }
+
     public function vote(){
         return $this->hasMany('App\Models\Vote','order_id');
     }
