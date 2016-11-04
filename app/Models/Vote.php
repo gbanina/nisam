@@ -26,10 +26,16 @@ class Vote extends Model
      */
     protected $hidden = [];
 
-    public function getPlaceAttribute()
+    public function user()
     {
-        return  Place::find($this->place_id);
+        return $this->belongsTo('App\User');
     }
+
+    public function place()
+    {
+        return $this->belongsTo('App\Models\Place');
+    }
+
     public function count(){
         return Vote::where('order_id', '=', $this->order_id)->count();
     }

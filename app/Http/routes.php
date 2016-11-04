@@ -11,6 +11,8 @@
 |
 */
 
+include(__DIR__ . '/routes.api.php');
+
 Route::get('/', function () {
     return Redirect::to('main');
 });
@@ -79,14 +81,4 @@ post( '/login' , [
 get( '/logout' , [
     'as' => 'logout' ,
     'uses' => 'Auth\AuthController@getLogout'
-] );
-
-get( '/test' , [
-    'as' => 'test.index' ,
-    'uses' => 'TestController@index'
-] );
-
-get( '/votes' , [
-    'as' => 'test.votes' ,
-    'uses' => 'TestController@votes'
 ] );

@@ -6,8 +6,6 @@ use App\User as User;
 class UserTableSeeder extends Seeder {
 
     public function run() {
-        User::truncate();
-
         User::create( [
             'email' => 'zbiskup@gmail.com' ,
             'password' => Hash::make( 'password' ) ,
