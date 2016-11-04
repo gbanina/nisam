@@ -27,6 +27,10 @@ class UserOrder extends Model
      */
     protected $hidden = [];
 
+    public function order(){
+        return $this->hasOne('App\Models\Order','id');
+    }
+
     public function getUserFullAttribute()
     {
         return  User::find($this->user_id);

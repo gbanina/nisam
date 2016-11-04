@@ -37,6 +37,7 @@ class WizzardMain{
         $view->with('infoMsg', 'Nema još puno vremena! Kam danas idemo jesti?');
         $view->with('expire', $this->todayOrder->dateFormated);
         $view->with('me', $this->loggedUser->name);
+
         return $view;
     }
     public function wait($myVote){
@@ -62,6 +63,7 @@ class WizzardMain{
         if($myOrder == null)    $myOrder = '';
         else                    $myOrder = $myOrder->desc;
 
+        $view->with('lastOrders', UserUtil::myLastOrders($this->loggedUser->id,$this->todayOrder->place_id));
         $view->with('users', $users);
         $view->with('orders', $userOrders);
         $view->with('nextUser', $this->todayOrder->user);
