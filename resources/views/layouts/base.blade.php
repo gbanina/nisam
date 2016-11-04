@@ -5,8 +5,11 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Nisam!</title>
+
+        <link rel="icon" href="{{URL::to('img/favicon.ico')}}">
+
         <meta name="author" content="Goran Banina" />
-        <link rel="shortcut icon" href="{{URL::to('/favicon.ico')}}">
+        <link rel="shortcut icon" href="{{URL::to('img/favicon.ico')}}">
         <link rel="stylesheet" type="text/css" href="{{URL::to('css/normalize.css')}}" />
         <link rel="stylesheet" type="text/css" href="{{URL::to('css/demo.css')}}" />
         <link rel="stylesheet" type="text/css" href="{{URL::to('css/component2.css')}}" />
