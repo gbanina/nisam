@@ -2,22 +2,37 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Support\Facades\Redirect;
-use App\Http\Controllers\Controller;
-use App\Util\OrderUtil;
-use App\Util\UserUtil;
-use App\Util\WizzardMain;
-use App\User;
-use App\Models\Order;
-use App\Models\Rule;
-use App\Models\UserOrder;
-use App\Models\Place;
-use App\Models\Vote;
-use Input;
 use Auth;
+use Input;
+use App\User;
+use App\Http\Controllers\Controller;
+use App\Models\Vote;
+use App\Models\Rule;
+use App\Models\Place;
+use App\Models\Order;
+use App\Models\UserOrder;
+use App\Util\UserUtil;
+use App\Util\OrderUtil;
+use App\Util\WizzardMain;
+use Illuminate\Support\Facades\Redirect;
 
 class ApiController extends Controller
 {
+    /**
+     * API root
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        return response()->json(['version' => '1.0']);
+    }
+
+    /**
+     * Current status
+     *
+     * @return Response
+     */
     public function status()
     {
         // Get todays order
