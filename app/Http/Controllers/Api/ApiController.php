@@ -47,47 +47,16 @@ class ApiController extends Controller
             $response = [
                 'status'  => strtolower($todayOrder->status),
                 'expired' => $expired,
-                'order'   => $todayOrder->with(['user', 'place'])->get(),
+                'order'   => $todayOrder,
+                'place'   => $todayOrder->place,
             ];
 
             // Get all votes
-            $response['votes'] = Vote::with(['place', 'user'])->get();
+            $response['votes'] = Vote::with(['place', 'user'])->where('order_id', $todayOrder->id)->get();
 
             return response()->json($response);
         }
 
         return response()->json(['status' => 'missing']);
-
-        // Now check the order status and return a response
-
-
-
-
-
-
-
-
-
-        $wizzard    = new WizzardMain(Auth::user(), $todayOrder);
-
-        return response()->json(['status' => '123', 'order' => $todayOrder]);
-
-        if($todayOrder == null){
-            // return $wizzard->start();
-        } // start
-
-        if($todayOrder->status == 'CREATED' && !OrderUtil::isExpired($todayOrder)){
-            $myVote = UserUtil::myVote(Auth::user());
-
-            if($myVote == null){
-                    $view = $wizzard->vote();
-                } // vote
-            else{
-                    $view = $wizzard->wait($myVote);
-                } // wait
-            // return $view;
-        }
-
-        return response()->json();
     }
 }
