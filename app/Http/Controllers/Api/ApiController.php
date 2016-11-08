@@ -53,6 +53,7 @@ class ApiController extends Controller
                     'expired' => $expired,
                     'order'   => $todayOrder,
                     'place'   => $todayOrder->place,
+                    'user'    => $todayOrder->user,
                 ];
 
                 // Add place votes
