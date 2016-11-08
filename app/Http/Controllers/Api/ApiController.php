@@ -35,24 +35,42 @@ class ApiController extends Controller
      */
     public function status()
     {
+        $places = Place::all();
+
         // Get todays order
         $todayOrder = Order::today();
 
-        // Check if expired
-        $expired    = OrderUtil::isExpired($todayOrder);
-        $todayOrder = Order::today();
-
-        // If no order is created, return blank object
+        // If no order exists yet
         if ($todayOrder) {
-            $response = [
-                'status'  => strtolower($todayOrder->status),
-                'expired' => $expired,
-                'order'   => $todayOrder,
-                'place'   => $todayOrder->place,
-            ];
+            // Check if expired
+            $expired    = OrderUtil::isExpired($todayOrder);
+            $todayOrder = Order::today();
 
-            // Get all votes
-            $response['votes'] = Vote::with(['place', 'user'])->where('order_id', $todayOrder->id)->get();
+            // If no order is created, return blank object
+            if ($todayOrder) {
+                $response = [
+                    'status'  => strtolower($todayOrder->status),
+                    'expired' => $expired,
+                    'order'   => $todayOrder,
+                    'place'   => $todayOrder->place,
+                ];
+
+                // Add place votes
+                $response['votes'] = [];
+
+                foreach ($places as $place) {
+                    $response['votes'][] = [
+                        'id' => $place->id,
+                        'name' => $place->short,
+                        'votes' => $place->todayVotessCount,
+                    ];
+                }
+
+                // Sort by votes
+                usort($response['votes'], function($a, $b) {
+                    return $a['votes'] < $b['votes'];
+                });
+            }
 
             return response()->json($response);
         }
