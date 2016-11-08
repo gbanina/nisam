@@ -39,9 +39,12 @@ class OrderUtil{
 
     public static function isExpired($order){
         if (date("Y-m-d H:i:s") >= $order->date){
-            $order->status = "FINISHED";
-            $order->place_id = OrderUtil::topPlace($order->id);
-            $order->save();
+            if ($order->status !== 'CLOSED') {
+                $order->status = "FINISHED";
+                $order->place_id = OrderUtil::topPlace($order->id);
+                $order->save();
+            }
+            
             return true;
         }
         return false;
