@@ -10,13 +10,13 @@
 
         <meta name="author" content="Goran Banina" />
         <link rel="shortcut icon" href="{{URL::to('img/favicon.ico')}}">
+        <link rel="stylesheet" href="{{URL::to('css/select2.min.css')}}">
         <link rel="stylesheet" type="text/css" href="{{URL::to('css/normalize.css')}}" />
         <link rel="stylesheet" type="text/css" href="{{URL::to('css/demo.css')}}" />
         <link rel="stylesheet" type="text/css" href="{{URL::to('css/component2.css')}}" />
         <link rel="stylesheet" type="text/css" href="{{URL::to('css/elements.css')}}" />
         <link rel="stylesheet" href="{{URL::to('css/jquery-ui.css')}}">
 		<link rel="stylesheet" href="{{URL::to('css/jquery.piemenu.css')}}">
-        <link rel="stylesheet" href="{{URL::to('css/select2.min.css')}}">
 
 
 

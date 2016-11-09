@@ -323,3 +323,11 @@ body {
 		line-height: 3em;
 	}
 }
+
+.select2-results__option {
+    color: #333 !important;
+}
+
+.select2-results li {
+    color: #333 !important;
+}
