@@ -49,11 +49,12 @@ class ApiController extends Controller
             // If no order is created, return blank object
             if ($todayOrder) {
                 $response = [
-                    'status'  => strtolower($todayOrder->status),
-                    'expired' => $expired,
-                    'order'   => $todayOrder,
-                    'place'   => $todayOrder->place,
-                    'user'    => $todayOrder->user,
+                    'status'         => strtolower($todayOrder->status),
+                    'expired'        => $expired,
+                    'expirationTime' => $todayOrder->dateFormated,
+                    'order'          => $todayOrder,
+                    'place'          => $todayOrder->place,
+                    'user'           => $todayOrder->user,
                 ];
 
                 // Add place votes
