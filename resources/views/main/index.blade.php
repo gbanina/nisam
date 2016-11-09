@@ -21,7 +21,7 @@
                         {!! Form::open(array('route' => 'main.order','id' => 'order-form')) !!}
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                        <select class="area_better" onchange="$('#desc').val($('#previous-orders').val())" id="previous-orders">
+                        <select class="area_better rich-select" onchange="$('#desc').val($('#previous-orders').val())" id="previous-orders">
                             <option value="" disabled selected>Tvoji zadnji gableci.</option>
                             @foreach ($lastOrders as $order)
                                 <option value="{{$order->desc}}">{{$order->desc}}</option>

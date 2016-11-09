@@ -16,6 +16,7 @@
         <link rel="stylesheet" type="text/css" href="{{URL::to('css/elements.css')}}" />
         <link rel="stylesheet" href="{{URL::to('css/jquery-ui.css')}}">
 		<link rel="stylesheet" href="{{URL::to('css/jquery.piemenu.css')}}">
+        <link rel="stylesheet" href="{{URL::to('css/select2.min.css')}}">
 
 
 
@@ -26,12 +27,14 @@
         <script type="text/javascript" src="{{URL::to('jquery.label_better.js')}}"></script>
         <script type="text/javascript" src="{{URL::to('js/jquery.countdown.min.js')}}"></script>
 		<script type="text/javascript" src="{{URL::to('js/jquery.piemenu.js')}}"></script>
+        <script type="text/javascript" src="{{URL::to('js/select2.full.min.js')}}"></script>
 
         <script>
           $(document).ready( function() {
             $(".label_better").label_better({
               easing: "bounce"
             });
+            $(".rich-select").select2();
           });
         </script>
 
