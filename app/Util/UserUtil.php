@@ -36,9 +36,10 @@ class UserUtil{
 
             return DB::table('user_order')
             ->join('order', 'order.id', '=', 'user_order.order_id')
-            ->select('user_order.*', 'order.place_id')
+            ->select('user_order.desc', 'order.place_id')
             ->where('user_order.user_id','=', $me)
             ->where('order.place_id','=', $location)
+            ->groupBy('user_order.desc', 'order.place_id')
             ->get();
 
             //return UserOrder::where('user_id','=', $me)->getOrder()->get();

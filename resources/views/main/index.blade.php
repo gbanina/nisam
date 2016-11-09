@@ -11,7 +11,7 @@
             </div>
             <header>
                 @if ($status != 'CLOSED')
-                
+
                 <h1>{{$nextUser->name}}...
                     <span>Idemo u {{$place->name}}. Na tebi je red da <a href="#"  onclick="$( '#dialog' ).dialog( 'open' )">nazoveš!</a></span>
                     {!! Form::open(array('route' => 'main.changeUser','id' => 'chainge-form')) !!}
@@ -21,10 +21,10 @@
                         {!! Form::open(array('route' => 'main.order','id' => 'order-form')) !!}
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                        <select class="area_better">
+                        <select class="area_better" onchange="$('#desc').val($('#previous-orders').val())" id="previous-orders">
                             <option value="" disabled selected>Tvoji zadnji gableci.</option>
                             @foreach ($lastOrders as $order)
-                                <option value="{{$order->id}}">{{$order->desc}}</option>
+                                <option value="{{$order->desc}}">{{$order->desc}}</option>
                             @endforeach
                         </select>
 
