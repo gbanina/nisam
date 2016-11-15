@@ -34,6 +34,6 @@ $( document ).ready(function() {
                 $(".user-order-container").html(html);
             });
 
-        }, 5000);
+        }, 15000);
     }
 });
