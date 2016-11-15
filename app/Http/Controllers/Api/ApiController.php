@@ -15,6 +15,7 @@ use App\Util\UserUtil;
 use App\Util\OrderUtil;
 use App\Util\WizzardMain;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Collection;
 
 class ApiController extends Controller
 {
@@ -78,5 +79,41 @@ class ApiController extends Controller
         }
 
         return response()->json(['status' => 'missing']);
+    }
+
+    /**
+     * Return user orders for today
+     *
+     * @return Response
+     */
+    public function orders()
+    {
+        $result = [];
+        $places = Place::all();
+
+        // Get todays order
+        $todayOrder = Order::today();
+
+        // If no order exists yet
+        if ($todayOrder) {
+            // Check if expired
+            $expired    = OrderUtil::isExpired($todayOrder);
+            $todayOrder = Order::today();
+
+            // If no order is created, return blank object
+            if ($todayOrder) {
+                $result['orders'] = new Collection;
+                $userOrders = UserOrder::where('order_id','=', $todayOrder->id)->get();
+
+                foreach ($userOrders as $userOrder) {
+                    $result['orders']->push([
+                        'order' => $userOrder->toArray(),
+                        'user' => $userOrder->userFull->toArray(),
+                    ]);
+                }
+            }
+        }
+
+        return response()->json($result);
     }
 }

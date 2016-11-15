@@ -54,15 +54,19 @@
 
             <section>
                 <h2><a href="{{$place->link}}" target="_blank">{{$place->short}}</a></h2>
-                @foreach ($orders as $order)
-                    <p>{{$order->userFull->name}} - {{$order->desc}}</p>
-                @endforeach
+                <div class="user-order-container">
+                    @foreach ($orders as $order)
+                        <p>{{$order->userFull->name}} - {{$order->desc}}</p>
+                    @endforeach
+                </div>
             </section>
 
 <div id="dialog" title="Zoveš : {{$place->short}} - {{$place->phone}}">
-    @foreach ($orders as $order)
-        <p>{{$order->userFull->name}} - {{$order->desc}}</p>
-    @endforeach
+    <div class="user-order-container">
+        @foreach ($orders as $order)
+            <p>{{$order->userFull->name}} - {{$order->desc}}</p>
+        @endforeach
+    </div>
 </div>
 
 <script src="js/dialog.js"></script>
