@@ -4,8 +4,6 @@ Route::get('/', function () {
     return Redirect::to('main');
 });
 
-// Route::model( 'user' , 'App\Models\User' );
-
 Route::group(['middleware' => 'auth'] , function()
 {
     Route::get('profile',          ['as' => 'profile',          'uses' => 'ProfileController@index']);

@@ -13,7 +13,7 @@ class AddGroupToUser extends Migration
     public function up()
     {
         Schema::table('users', function($table){
-            $table->integer('group_id');
+            $table->integer('group_id')->nullable();
             //$table->foreign('group_id')->references('id')->on('group')->onDelete('cascade');
         });
     }
@@ -25,6 +25,10 @@ class AddGroupToUser extends Migration
      */
     public function down()
     {
-        //
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('group_id');
+        });
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

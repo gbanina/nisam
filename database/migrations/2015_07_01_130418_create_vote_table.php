@@ -21,7 +21,7 @@ class CreateVoteTable extends Migration
             $table->integer('order_id')->unsigned();
             $table->foreign('order_id')->references('id')->on('order')->onDelete('cascade');
 
-            $table->integer('place_id')->unsigned();
+            $table->integer('place_id')->nullable()->unsigned();
             $table->foreign('place_id')->references('id')->on('place')->onDelete('cascade');
 
             // Generic
@@ -40,6 +40,8 @@ class CreateVoteTable extends Migration
      */
     public function down()
     {
-        //
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        Schema::drop('vote');
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

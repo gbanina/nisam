@@ -14,7 +14,7 @@ class CreateTableRule extends Migration
     {
         Schema::create('rule', function($table){
             $table->increments('id');
-            $table->enum('type', array('USER','GROUP'))->default('USER');
+            $table->string('type', 20)->default('USER');
             $table->integer('user_id')->unsigned();
             $table->text('condition');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
@@ -35,6 +35,8 @@ class CreateTableRule extends Migration
      */
     public function down()
     {
-        //
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        Schema::drop('rule');
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

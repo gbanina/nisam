@@ -13,7 +13,7 @@ class ChaingeOrderStatus extends Migration
     public function up()
     {
         Schema::table('order', function($table){
-            $table->enum('status', array('CREATED','FINISHED','CLOSED'))->default('CREATED')->change();
+            $table->string('status', 20)->default('CREATED')->change();
         });
     }
 
