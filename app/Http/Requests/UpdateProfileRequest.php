@@ -27,7 +27,7 @@ class UpdateProfileRequest extends Request
     {
        return [
             'name' => 'required',
-            'email' => 'required|',
+            'email' => 'required',
             'password' => 'required|min:8'
         ];
     }
