@@ -5,8 +5,11 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="api-url" content="{{ url('api') }}">
-        
-        <title>Nisam!</title>
+
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
+        <title>{{ config('app.name', 'Laravel') }}</title>
 
         <link rel="icon" href="{{URL::to('img/favicon.ico')}}">
 
@@ -20,7 +23,12 @@
         <link rel="stylesheet" href="{{URL::to('css/jquery-ui.css')}}">
 		<link rel="stylesheet" href="{{URL::to('css/jquery.piemenu.css')}}">
 
-
+        <!-- Scripts -->
+        <script>
+            window.Laravel = <?php echo json_encode([
+                'csrfToken' => csrf_token(),
+            ]); ?>
+        </script>
 
         <script src="{{URL::to('js/modernizr-2.6.2.min.js')}}"></script>
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -57,6 +65,6 @@
          @yield('body')
 
       </div>
-         <script src="{{URL::to('js/polyfills.js')}}"></script>
+         <script src="{{ URL::to('js/polyfills.js') }}"></script>
     </body>
 </html>

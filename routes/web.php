@@ -4,68 +4,18 @@ Route::get('/', function () {
     return Redirect::to('main');
 });
 
-Route::model( 'user' , 'App\User' );
+// Route::model( 'user' , 'App\Models\User' );
 
-Route::group( [
-    'middleware' => 'auth' ,
-        ] , function() {
+Route::group(['middleware' => 'auth'] , function()
+{
+    Route::get('profile',          ['as' => 'profile',          'uses' => 'ProfileController@index']);
+    Route::post('profile',         ['as' => 'profile.update' ,  'uses' => 'ProfileController@update']);
+    Route::get('main' ,            ['as' => 'main',             'uses' => 'MainController@index']);
+    Route::post('main' ,           ['as' => 'main.order',       'uses' => 'MainController@order']);
+    Route::post('main{id}',        ['as' => 'main.changeUser',  'uses' => 'MainController@changeUser']);
+    Route::get('main/finishOrder', ['as' => 'main.finishOrder', 'uses' => 'MainController@finishOrder']);
+    Route::get('main/{id}',        ['as' => 'main.vote',        'uses' => 'MainController@vote']);
+});
 
-        get( '/profile' , [
-            'as' => 'profile' ,
-            'uses' => 'ProfileController@index'
-        ] );
-        post( '/profile' , [
-            'as' => 'profile.update' ,
-            'uses' => 'ProfileController@update'
-        ] );
-        get( '/main' , [
-            'as' => 'main' ,
-            'uses' => 'MainController@index'
-        ] );
-        post( '/main' , [
-            'as' => 'main.order' ,
-            'uses' => 'MainController@order'
-        ] );
-        post( '/main{id}' , [
-            'as' => 'main.changeUser' ,
-            'uses' => 'MainController@changeUser'
-        ] );
-        get( '/main/finishOrder' , [
-            'as' => 'main.finishOrder' ,
-            'uses' => 'MainController@finishOrder'
-        ] );
-        get( '/main/{id}' , [
-            'as' => 'main.vote' ,
-            'uses' => 'MainController@vote'
-        ] );
-    } );
-
-Route::controllers([
-    'auth' => 'Auth\AuthController',
-    'password' => 'Auth\PasswordController',
-]);
-
-get( '/register' , [
-    'as' => 'register' ,
-    'uses' => 'Auth\AuthController@getRegister'
-] );
-
-post( '/register' , [
-    'as' => 'post.register' ,
-    'uses' => 'Auth\AuthController@postRegister'
-] );
-
-get( '/login' , [
-    'as' => 'login' ,
-    'uses' => 'Auth\AuthController@getLogin'
-] );
-
-post( '/login' , [
-    'as' => 'post.login' ,
-    'uses' => 'Auth\AuthController@postLogin'
-] );
-
-get( '/logout' , [
-    'as' => 'logout' ,
-    'uses' => 'Auth\AuthController@getLogout'
-] );
+Auth::routes();
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');

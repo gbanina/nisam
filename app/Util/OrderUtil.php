@@ -2,7 +2,7 @@
 
 namespace App\Util;
 
-use App\User;
+use App\Models\User;
 use App\Models\Admin;
 use App\Models\Order;
 use App\Util\UserUtil;
@@ -44,7 +44,7 @@ class OrderUtil{
                 $order->place_id = OrderUtil::topPlace($order->id);
                 $order->save();
             }
-            
+
             return true;
         }
         return false;

@@ -37,7 +37,7 @@ class Order extends Model
         return $this->belongsTo('App\Models\Place','place_id');
     }
     public function user(){
-        return $this->belongsTo('App\User','user_id');
+        return $this->belongsTo('App\Models\User','user_id');
     }
     public function getVotes(){
         return Vote::where('order_id','=',$this->id)->get();

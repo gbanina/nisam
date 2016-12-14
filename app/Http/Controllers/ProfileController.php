@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Redirect;
-use App\User;
+use App\Models\User;
 use Input;
 use Auth;
 use Hash;

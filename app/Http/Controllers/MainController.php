@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Util\OrderUtil;
 use App\Util\UserUtil;
 use App\Util\WizzardMain;
-use App\User;
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Rule;
 use App\Models\UserOrder;

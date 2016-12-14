@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Auth;
 use Input;
-use App\User;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Models\Vote;
 use App\Models\Rule;

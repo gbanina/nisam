@@ -2,7 +2,7 @@
 
 namespace App\Util;
 use DB;
-use App\User;
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Rule;
 use App\Models\Vote;
