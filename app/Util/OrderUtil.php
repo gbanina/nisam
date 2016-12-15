@@ -61,6 +61,6 @@ class OrderUtil{
         $votes    = $votes->where('vote_count', $maxVotes);
         $vote     = $votes->random();
 
-        return $votes->place_id;
+        return $vote->place_id;
     }
 }
