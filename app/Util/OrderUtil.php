@@ -7,11 +7,14 @@ use App\Models\Admin;
 use App\Models\Order;
 use App\Util\UserUtil;
 use DB;
+use Log;
+use GuzzleHttp\Client as HttpClient;
 
 class OrderUtil{
 
     public static function todayOrder($group_id){
         $order = OrderUtil::today();
+
         if($order == null){
             $order = new Order;
             $lifetime = Admin::getValue($group_id, 'vote_expires');
@@ -27,6 +30,8 @@ class OrderUtil{
                 $order->date = date('Y-m-d 10:30:00');
 
             $order->user_id = UserUtil::nextUser($group_id)->id;
+
+            self::sendOrderNotification($order);
             $order->save();
         }
 
@@ -62,5 +67,35 @@ class OrderUtil{
         $vote     = $votes->random();
 
         return $vote->place_id;
+    }
+
+    /**
+     * Send out notification to Slack group
+     *
+     * @return bool
+     */
+    public static function sendOrderNotification($order)
+    {
+        $webhook  = env('SLACK_WEBHOOK');
+        $message  = 'Glasanje je počelo!';
+        $sendData = ['text' => $message];
+        $headers  = ['Content-Type' => 'application/json'];
+        $client   = new HttpClient();
+
+        if ($webhook) {
+            try {
+                $response = $client->post($webhook, [
+                    'headers' => $headers,
+                    'body'    => json_encode($sendData),
+                ]);
+                Log::debug("[SLACK] Message sent.");
+
+                return true;
+            } catch (\Exception $e) {
+                Log::error("[SLACK] Error: " . $e->getMessage());
+            }
+        }
+
+        return false;
     }
 }
