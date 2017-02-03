@@ -84,7 +84,7 @@ class OrderUtil{
     public static function sendOrderNotification($order)
     {
         $webhook  = env('SLACK_WEBHOOK');
-        $message  = 'Glasanje je počelo!';
+        $message  = 'Glasanje je počelo. <'.url('/').'|Glasaj i ti!>';
         $sendData = ['text' => $message];
         $headers  = ['Content-Type' => 'application/json'];
         $client   = new HttpClient();
