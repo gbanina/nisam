@@ -5,6 +5,7 @@ namespace App\Util;
 use App\User;
 use App\Models\Admin;
 use App\Models\Order;
+use App\Models\Vote;
 use App\Util\UserUtil;
 use DB;
 use Log;
@@ -45,9 +46,15 @@ class OrderUtil{
     public static function isExpired($order){
         if (date("Y-m-d H:i:s") >= $order->date){
             if ($order->status !== 'CLOSED') {
+                $prevStatus = $order->status;
                 $order->status = "FINISHED";
                 $order->place_id = OrderUtil::topPlace($order->id);
                 $order->save();
+
+                // Just finished?
+                if ($prevStatus !== "FINISHED") {
+                    self::sendVotingDoneNotification($order);
+                }
             }
 
             return true;
@@ -78,6 +85,36 @@ class OrderUtil{
     {
         $webhook  = env('SLACK_WEBHOOK');
         $message  = 'Glasanje je počelo!';
+        $sendData = ['text' => $message];
+        $headers  = ['Content-Type' => 'application/json'];
+        $client   = new HttpClient();
+
+        if ($webhook) {
+            try {
+                $response = $client->post($webhook, [
+                    'headers' => $headers,
+                    'body'    => json_encode($sendData),
+                ]);
+                Log::debug("[SLACK] Message sent.");
+
+                return true;
+            } catch (\Exception $e) {
+                Log::error("[SLACK] Error: " . $e->getMessage());
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Send out notification to Slack group
+     *
+     * @return bool
+     */
+    public static function sendVotingDoneNotification($order)
+    {
+        $webhook  = env('SLACK_WEBHOOK');
+        $message  = "Glasanje je završilo! \nIdemo u " . $order->place->name . "\n\n Nazvati mora " . $order->user->name;
         $sendData = ['text' => $message];
         $headers  = ['Content-Type' => 'application/json'];
         $client   = new HttpClient();
