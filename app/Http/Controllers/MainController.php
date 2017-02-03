@@ -83,6 +83,8 @@ class MainController extends Controller {
         $order->status = 'CLOSED';
         $order->save();
 
+        OrderUtil::sendOrderDoneNotification($order);
+
         return $order;
     }
 }

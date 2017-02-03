@@ -135,4 +135,35 @@ class OrderUtil{
 
         return false;
     }
+
+    /**
+     * Send out notification to Slack group
+     *
+     * @return bool
+     */
+    public static function sendOrderDoneNotification($order)
+    {
+        $webhook  = env('SLACK_WEBHOOK');
+        //Svi su narucili i Luka je nazval. Dobar tek!
+        $message  = "Svi su narucili i " . $order->user->name . " je nazval.\n Dobar tek!";
+        $sendData = ['text' => $message];
+        $headers  = ['Content-Type' => 'application/json'];
+        $client   = new HttpClient();
+
+        if ($webhook) {
+            try {
+                $response = $client->post($webhook, [
+                    'headers' => $headers,
+                    'body'    => json_encode($sendData),
+                ]);
+                Log::debug("[SLACK] Message sent.");
+
+                return true;
+            } catch (\Exception $e) {
+                Log::error("[SLACK] Error: " . $e->getMessage());
+            }
+        }
+
+        return false;
+    }
 }
