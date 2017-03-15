@@ -107,7 +107,38 @@ class OrderUtil{
     }
 
     /**
-     * Send out notification to Slack group
+     * Send out notification to Slack group when voting is almost done
+     *
+     * @return bool
+     */
+    public static function sendVotingAlmostDoneNotification($order)
+    {
+        $webhook  = env('SLACK_WEBHOOK');
+        //Svi su narucili i Luka je nazval. Dobar tek!
+        $message  = "Glasanje uskoro završava. <'.url('/').'|Daj svoj glas!>";
+        $sendData = ['text' => $message];
+        $headers  = ['Content-Type' => 'application/json'];
+        $client   = new HttpClient();
+
+        if ($webhook) {
+            try {
+                $response = $client->post($webhook, [
+                    'headers' => $headers,
+                    'body'    => json_encode($sendData),
+                ]);
+                Log::debug("[SLACK] Message sent.");
+
+                return true;
+            } catch (\Exception $e) {
+                Log::error("[SLACK] Error: " . $e->getMessage());
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Send out notification to Slack group when voting it finished
      *
      * @return bool
      */
@@ -137,7 +168,7 @@ class OrderUtil{
     }
 
     /**
-     * Send out notification to Slack group
+     * Send out notification to Slack group when assigned user called
      *
      * @return bool
      */
