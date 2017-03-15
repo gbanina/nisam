@@ -62,18 +62,24 @@ class OrderUtil{
         return false;
     }
     public static function topPlace($orderId){
-        $votes = Vote::where('order_id', $orderId)
-                     ->select(DB::raw('count(*) as vote_count, place_id'))
-                     ->groupBy('place_id')
-                     ->orderBy('vote_count', 'DESC')
-                     ->get();
+        $order = Order::find($orderId);
 
-        // Get max votes, filter places with max votes, and randomize
-        $maxVotes = $votes->max('vote_count');
-        $votes    = $votes->where('vote_count', $maxVotes);
-        $vote     = $votes->random();
+        if ( ! $order->place_id) {
+            $votes = Vote::where('order_id', $orderId)
+                         ->select(DB::raw('count(*) as vote_count, place_id'))
+                         ->groupBy('place_id')
+                         ->orderBy('vote_count', 'DESC')
+                         ->get();
 
-        return $vote->place_id;
+            // Get max votes, filter places with max votes, and randomize
+            $maxVotes = $votes->max('vote_count');
+            $votes    = $votes->where('vote_count', $maxVotes);
+            $vote     = $votes->random();
+
+            return $vote->place_id;
+        }
+
+        return $order->place_id;
     }
 
     /**
