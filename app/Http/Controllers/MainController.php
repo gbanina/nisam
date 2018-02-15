@@ -80,10 +80,12 @@ class MainController extends Controller {
     }
     public function finishOrder(){
         $order = OrderUtil::todayOrder(Auth::user()->group_id);
-        $order->status = 'CLOSED';
-        $order->save();
 
-        OrderUtil::sendOrderDoneNotification($order);
+        if ($order->status != 'CLOSED') {
+            OrderUtil::sendOrderDoneNotification($order);
+            $order->status = 'CLOSED';
+            $order->save();
+        }
 
         return $order;
     }
